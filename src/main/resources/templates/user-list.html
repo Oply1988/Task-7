@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <style type="text/css">
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-color: #ccc;
+        }
+        .tg td {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #fff;
+        }
+        .tg th {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+        .tg .tg-4eph {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<form method="get" action="/">
+    <button type="submit">Back to main menu</button>
+</form>
+
+<br/><br/>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+<br/><br/>
+
+<form method="get" action="/admin/users/add">
+    <button type="submit">Add New User</button>
+</form>
+
+<br/><br/>
+
+<h1>User List</h1>
+
+<div id="user-list">
+    <table class="tg">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Roles</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.roles}"></td>
+                <td><a th:href="@{/admin/users/edit/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/admin/users/delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>
